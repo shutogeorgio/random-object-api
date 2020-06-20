@@ -1,0 +1,19 @@
+spring:
+  security:
+    user:
+      name: user
+      password: fa8d08b2-9d37-4284-a8fd-ac11cb1801d5
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/word_db
+    username: postgres
+    password: password
+    driver-class-name: org.postgresql.Driver
+
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-description: Initial
+    baseline-on-migrate: true
+    schemas: public
