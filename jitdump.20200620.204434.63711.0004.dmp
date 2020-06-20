@@ -1,0 +1,7 @@
+<?xml version="1.0" standalone="no"?>
+<jitDump>
+#INFO: Crashed in application thread 00000000189E8A00.
+#INFO: Found 1 JITed methods on Java stack.
+<logRecompilation>
+</logRecompilation>
+</jitDump>
