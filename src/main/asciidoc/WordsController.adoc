@@ -1,0 +1,40 @@
+= Word API Documentation
+
+== Introduction
+Word API Spring REST Docs generated documentation.
+
+== Words API
+Collection of CRUD API endpoints used to manipulate persons registered in the application.
+
+=== Get List of Words
+Obtains List of words registered in the application by its unique identifier.
+
+==== Sample Request
+include::{snippets}/get-all-words/http-request.adoc[]
+
+==== Sample Response
+include::{snippets}/get-all-words/http-response.adoc[]
+
+==== CURL sample
+include::{snippets}/get-all-words/curl-request.adoc[]
+
+=== Get Word By Id
+Obtains a specific word registered in the application by its unique identifier.
+
+==== Sample Request
+include::{snippets}/get-single-word/http-request.adoc[]
+
+==== Sample Response
+include::{snippets}/get-single-word/http-response.adoc[]
+
+==== CURL sample
+include::{snippets}/get-single-word/curl-request.adoc[]
+
+=== Add Word
+TODO
+
+=== Update Word
+TODO
+
+=== Delete Word
+TODO
