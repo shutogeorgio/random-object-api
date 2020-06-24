@@ -2,27 +2,24 @@ package mvctuto.mvctuto.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.Value;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
-@Entity
-@Table(name="word")
 @Getter
 @Setter
-public class Word implements Serializable {
+@Value
+public class WordRequest {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    @Column(name="id")
     private long id;
 
-    @Column(name = "name", nullable = false)
     private String name;
 
-    public Word(){}
-
-    public Word(long id, String name){
+    public WordRequest(long id, String name){
         this.id = id;
         this.name = name;
     }

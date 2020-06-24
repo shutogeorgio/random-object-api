@@ -1,3 +1,4 @@
+/*
 package mvctuto.mvctuto.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
@@ -15,3 +16,4 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
         return new String[]{ "/" };
     }
 }
+*/

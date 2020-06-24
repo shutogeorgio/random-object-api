@@ -1,3 +1,4 @@
+/*
 package mvctuto.mvctuto.config;
 
 import org.springframework.context.annotation.ComponentScan;
@@ -23,3 +24,4 @@ public class AppConfig implements WebMvcConfigurer {
         converters.add(new MappingJackson2HttpMessageConverter(builder.build()));
     }
 }
+*/

@@ -2,38 +2,52 @@ package mvctuto.mvctuto.service;
 
 import mvctuto.mvctuto.dao.WordDao;
 import mvctuto.mvctuto.model.Word;
+import mvctuto.mvctuto.model.WordRequest;
 import mvctuto.mvctuto.repository.WordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class WordService implements WordDao {
 
-    @Autowired
     private WordRepository wordRepository;
 
-    @Override
-    public List<Word> getAllWords() {
-        List<Word> list = new ArrayList<>();
-        wordRepository.findAll().forEach(e -> list.add(e));
-        return list;
+    @Autowired
+    public WordService(WordRepository wordRepository){
+        this.wordRepository = wordRepository;
     }
 
     @Override
-    public boolean addWord(Word word) {
-        if (word == null){
-            return false;
-        }
+    public Optional<Word> selectSingleWord(long id) {
+        return wordRepository.findById(String.valueOf(id));
+    }
+
+    @Override
+    public List<Word> selectAllWords() {
+        return wordRepository.findAll();
+    }
+
+    @Override
+    public void addWord(WordRequest request) {
+        Word  word = new Word();
+        word.setId(request.getId());
+        word.setName(request.getName());
         wordRepository.save(word);
-        return true;
     }
 
+    @Override
+    public void updateWordById(long id, WordRequest request){
+        Word  word = new Word();
+        word.setId(id);
+        word.setName(request.getName());
+        wordRepository.deleteById(String.valueOf(id));
+    }
 
     @Override
-    public void deleteWord(long wordId) {
-
+    public void deleteWordById(long id){
+        wordRepository.deleteById(String.valueOf(id));
     }
 }
