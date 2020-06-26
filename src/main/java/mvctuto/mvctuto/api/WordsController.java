@@ -1,52 +1,49 @@
 package mvctuto.mvctuto.api;
 
+import lombok.NonNull;
+import mvctuto.mvctuto.model.Word;
+import mvctuto.mvctuto.model.WordRequest;
+import mvctuto.mvctuto.service.WordService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
-@RequestMapping("words")
+@RequestMapping("api/v1")
 @RestController
 public class WordsController {
 
-    @GetMapping
-    public List getAllWords() {
-        HashMap<String, Object> firstWord = new HashMap<>();
-        firstWord.put("id", 1);
-        firstWord.put("name", "Google");
+    private WordService wordService;
 
-        HashMap<String, Object> secondtWord = new HashMap<>();
-        secondtWord.put("id", 2);
-        secondtWord.put("name", "Firefox");
-
-        List keys = new ArrayList();
-        keys.add(firstWord);
-        keys.add(secondtWord);
-
-        return keys;
+    @Autowired
+    public WordsController(WordService wordService){
+        this.wordService = wordService;
     }
 
-    @PostMapping
-    public void addWord() {
-        // TODO: Add Single Word
+    @GetMapping("words")
+    public List<Word> getAllWords() {
+        return wordService.selectAllWords();
     }
 
-    @GetMapping("/{id}")
-    public HashMap<String, Object> getSingleWordById(@PathVariable int id) {
-        HashMap<String, Object> word = new HashMap<>();
-        word.put("id", id);
-        word.put("name", "google");
-        return word;
+    @GetMapping("words/{id}")
+    public Optional<Word> getSingleWord(@PathVariable("id") long id){
+        return wordService.selectSingleWord(id);
     }
 
-    @PutMapping("/{id}")
-    public void updateWordById() {
-        // TODO: Update Single Word
+    @PostMapping("words")
+    public void addWord(@RequestBody @Validated @NonNull WordRequest word) {
+        wordService.addWord(word);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteWordById() {
-        // TODO: Delete Single Word
+    @PutMapping("words/{id}")
+    public void updateWordById (@PathVariable("id") long id, @RequestBody @Validated @NonNull WordRequest word) {
+        wordService.updateWordById(id, word);
+    }
+
+    @DeleteMapping("words/{id}")
+    public void deleteWordById(@PathVariable("id") long id) {
+        wordService.deleteWordById(id);
     }
 }
