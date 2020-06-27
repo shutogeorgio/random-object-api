@@ -41,8 +41,9 @@ public class WordService {
 		return true;
 	}
 
-	public void deleteWordById(long id) {
+	public boolean deleteWordById(long id) {
 		wordRepository.deleteById(String.valueOf(id));
+		return true;
 	}
 
 }

@@ -41,23 +41,31 @@ public class WordsController {
 	}
 
 	@PostMapping
-	public void addWord(@RequestBody @Validated WordRequest word) {
-		wordService.addWord(word);
+	public void addWord(@RequestBody @Validated @NotEmpty WordRequest word,
+			BindingResult errors) {
+		if (errors.hasErrors()) {
+			throw new ResponseStatusException(NOT_FOUND, "Unable to create new word");
+		}
+		else {
+			wordService.addWord(word);
+		}
+		;
 	}
 
 	@PutMapping("/{id}")
 	public void updateWordById(@PathVariable("id") long id,
-			@RequestBody @Validated @NotEmpty WordRequest word,
-							   BindingResult errors) throws BindException {
-		if(errors.hasErrors()){
+			@RequestBody @Validated @NotEmpty WordRequest word, BindingResult errors) {
+		if (errors.hasErrors()) {
 			throw new ResponseStatusException(NOT_FOUND, "Unable to update");
-		} else {
+		}
+		else {
 			wordService.updateWordById(id, word);
 		}
 	}
 
 	@DeleteMapping("/{id}")
-	public void deleteWordById(@PathVariable("id") long id) {
+	public void deleteWordById(@PathVariable("id") long id)
+			throws ResponseStatusException {
 		wordService.deleteWordById(id);
 	}
 

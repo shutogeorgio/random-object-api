@@ -22,8 +22,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Optional;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.*;
 import static org.postgresql.hostchooser.HostRequirement.any;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
@@ -143,6 +142,13 @@ public class WordsControllerTests {
 				.perform(put("/api/v1/words/1").with(csrf())
 						.contentType(MediaType.APPLICATION_JSON_VALUE).content(content))
 				.andExpect(status().isNotFound());
+	}
+
+	@Test
+	@WithMockUser(username = "user")
+	public void deleteWordShouldReturnOk() throws Exception {
+		this.mockMvc.perform(delete("/api/v1/words/1").with(csrf()))
+				.andExpect(status().isOk()).andDo(document("delete-single-word"));
 	}
 
 }
