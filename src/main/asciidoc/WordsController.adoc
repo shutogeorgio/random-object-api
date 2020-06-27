@@ -31,10 +31,32 @@ include::{snippets}/get-single-word/http-response.adoc[]
 include::{snippets}/get-single-word/curl-request.adoc[]
 
 === Add Word
-TODO
+
+==== Sample Request
+include::{snippets}/create-single-word/http-request.adoc[]
+
+==== Sample Response
+include::{snippets}/create-single-word/http-response.adoc[]
+
+==== CURL sample
+include::{snippets}/create-single-word/curl-request.adoc[]
 
 === Update Word
-TODO
+==== Sample Request
+include::{snippets}/update-single-word/http-request.adoc[]
+
+==== Sample Response
+include::{snippets}/update-single-word/http-response.adoc[]
+
+==== CURL sample
+include::{snippets}/update-single-word/curl-request.adoc[]
 
 === Delete Word
-TODO
+==== Sample Request
+include::{snippets}/delete-single-word/http-request.adoc[]
+
+==== Sample Response
+include::{snippets}/delete-single-word/http-response.adoc[]
+
+==== CURL sample
+include::{snippets}/delete-single-word/curl-request.adoc[]

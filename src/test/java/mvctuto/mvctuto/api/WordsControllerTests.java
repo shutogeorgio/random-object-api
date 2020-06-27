@@ -1,10 +1,8 @@
 package mvctuto.mvctuto.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import mvctuto.mvctuto.model.Word;
 import mvctuto.mvctuto.model.WordRequest;
-import mvctuto.mvctuto.repository.WordRepository;
 import mvctuto.mvctuto.service.WordService;
 import org.junit.BeforeClass;
 import org.junit.jupiter.api.Test;
@@ -23,7 +21,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.*;
-import static org.postgresql.hostchooser.HostRequirement.any;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
@@ -65,8 +62,8 @@ public class WordsControllerTests {
 		Word wordObj = new Word();
 		BDDMockito.given(wordService.selectSingleWord(id))
 				.willReturn(Optional.of(wordObj));
-		this.mockMvc.perform(get("/api/v1/words/1")).andExpect(status().isOk())
-				.andDo(document("get-single-word", responseFields(word)));
+		this.mockMvc.perform(get("/api/v1/words/{id}", id)).andExpect(status().isOk())
+				.andDo(document("get-single-word"));
 	}
 
 	@Test
