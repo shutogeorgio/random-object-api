@@ -1,29 +1,33 @@
 package mvctuto.mvctuto.model;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.io.Serializable;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
-@Table(name="word")
+@Table(name = "word")
 @Getter
 @Setter
-public class Word implements Serializable {
+public class Word {
 
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    @Column(name="id")
-    private long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id")
+	private long id;
 
-    @Column(name = "name", nullable = false)
-    private String name;
+	@NotEmpty
+	@Column(name = "name", nullable = false)
+	private String name;
 
-    public Word(){}
+	public Word() {
+	}
 
-    public Word(long id, String name){
-        this.id = id;
-        this.name = name;
-    }
+	public Word(long id, String name) {
+		this.id = id;
+		this.name = name;
+	}
+
 }

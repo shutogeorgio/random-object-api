@@ -1,49 +1,64 @@
 package mvctuto.mvctuto.api;
 
-import lombok.NonNull;
 import mvctuto.mvctuto.model.Word;
 import mvctuto.mvctuto.model.WordRequest;
 import mvctuto.mvctuto.service.WordService;
+import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindException;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.HttpMediaTypeException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 import java.util.Optional;
 
-@RequestMapping("api/v1")
+import static org.springframework.http.HttpStatus.NOT_FOUND;
+
+@RequestMapping("/api/v1/words")
 @RestController
 public class WordsController {
 
-    private WordService wordService;
+	private WordService wordService;
 
-    @Autowired
-    public WordsController(WordService wordService){
-        this.wordService = wordService;
-    }
+	@Autowired
+	public WordsController(WordService wordService) {
+		this.wordService = wordService;
+	}
 
-    @GetMapping("words")
-    public List<Word> getAllWords() {
-        return wordService.selectAllWords();
-    }
+	@GetMapping
+	public List<Word> getAllWords() {
+		return wordService.selectAllWords();
+	}
 
-    @GetMapping("words/{id}")
-    public Optional<Word> getSingleWord(@PathVariable("id") long id){
-        return wordService.selectSingleWord(id);
-    }
+	@GetMapping("/{id}")
+	public Optional<Word> getSingleWord(@PathVariable("id") long id) {
+		return wordService.selectSingleWord(id);
+	}
 
-    @PostMapping("words")
-    public void addWord(@RequestBody @Validated @NonNull WordRequest word) {
-        wordService.addWord(word);
-    }
+	@PostMapping
+	public void addWord(@RequestBody @Validated WordRequest word) {
+		wordService.addWord(word);
+	}
 
-    @PutMapping("words/{id}")
-    public void updateWordById (@PathVariable("id") long id, @RequestBody @Validated @NonNull WordRequest word) {
-        wordService.updateWordById(id, word);
-    }
+	@PutMapping("/{id}")
+	public void updateWordById(@PathVariable("id") long id,
+			@RequestBody @Validated @NotEmpty WordRequest word,
+							   BindingResult errors) throws BindException {
+		if(errors.hasErrors()){
+			throw new ResponseStatusException(NOT_FOUND, "Unable to update");
+		} else {
+			wordService.updateWordById(id, word);
+		}
+	}
 
-    @DeleteMapping("words/{id}")
-    public void deleteWordById(@PathVariable("id") long id) {
-        wordService.deleteWordById(id);
-    }
+	@DeleteMapping("/{id}")
+	public void deleteWordById(@PathVariable("id") long id) {
+		wordService.deleteWordById(id);
+	}
+
 }
